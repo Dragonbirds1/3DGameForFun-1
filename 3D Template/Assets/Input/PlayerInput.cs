@@ -28,19 +28,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""id"": ""3ced9ba2-2384-4ae5-a883-3d0575b75a50"",
             ""actions"": [
                 {
-                    ""name"": ""WASD"",
-                    ""type"": ""Button"",
-                    ""id"": ""287c05b2-196c-46f0-a094-28844c05b50c"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""LeftStick"",
-                    ""type"": ""Button"",
-                    ""id"": ""0dce9b71-4b30-40e0-b491-1047031c8d1e"",
-                    ""expectedControlType"": """",
+                    ""name"": ""Movement"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""71bcdce6-e88e-442d-80ac-d0f7caf61aa2"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -48,7 +39,34 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
-                    ""id"": ""8f826637-b655-43c8-870e-2735349ff8b6"",
+                    ""id"": ""4814ed30-5545-407a-b0b9-3a5161d6a079"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""a0ec6b57-e193-43c4-ab78-bdc1d349fcea"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""3b16aeaa-525a-42f3-a86a-82087c4dd257"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""b0b0c0a7-a887-415d-802c-e0210178a930"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -57,96 +75,118 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""ae16b61b-2d25-4c4e-a8b3-a16659f05b75"",
+                    ""name"": ""WASD"",
+                    ""id"": ""796ece59-2ce1-43a7-badb-c74d7225318d"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""516597b1-e2fb-49e9-b653-004afb404ffa"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WASD"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""6462eea1-7b85-4f65-be8a-798428895d58"",
+                    ""name"": ""down"",
+                    ""id"": ""85972efe-d307-4061-bd34-50013c7f217d"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WASD"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""51b55fcd-1126-4d04-a194-28f83b1b8a7d"",
+                    ""name"": ""left"",
+                    ""id"": ""2a1c5f27-9cf4-4b61-ba09-21e6b91872b4"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WASD"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""218057fb-68a5-4885-b111-701443e5ecd7"",
+                    ""name"": ""right"",
+                    ""id"": ""0d1f2dac-d91b-43c6-bed8-591d6795be20"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WASD"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""LeftStick"",
+                    ""id"": ""4a588c6b-98c0-4507-983f-99c8aeb949d4"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""0304a21f-4650-4c3d-be16-3825addf396f"",
+                    ""name"": ""up"",
+                    ""id"": ""23c712e8-a781-40b7-b422-69974b004d7a"",
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""LeftStick"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""ca918c74-acd7-48e1-a703-55a2e359cc90"",
+                    ""name"": ""down"",
+                    ""id"": ""f1d0de33-fbe1-481f-9be2-064e06133c03"",
                     ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""LeftStick"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""e3cbd1fe-f751-421c-87f5-26788ff9bdcb"",
+                    ""name"": ""left"",
+                    ""id"": ""89577802-22bc-4d31-9b8b-d4d6ae3a0f89"",
                     ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""LeftStick"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""66b627dc-78aa-45b7-be52-7d789a9b85fe"",
+                    ""name"": ""right"",
+                    ""id"": ""16141ea1-877a-4cea-8b84-f3ecbe4592f1"",
                     ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""LeftStick"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
-                    ""id"": ""afde3aff-6b6b-45e2-8ee7-60c043e1e463"",
+                    ""id"": ""b6118b32-20e1-4d21-853f-87741471d4ef"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -157,12 +197,78 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""bd035d51-bdec-4305-b538-88c8b9738c46"",
+                    ""id"": ""8d1f88d2-96e5-4885-8304-79294a6a24fb"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a424c569-49fa-404b-876c-72aa072d464c"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7a2404c-63f9-419a-ae38-32c70ae612a2"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8faa5fc5-9ec2-4cf5-8dd5-b3121a0c85f7"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0aa0ed46-8d79-40fb-bbad-581c8cdbddfe"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d6483a37-9a36-4f8d-bb24-3fc3cd098a52"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""570799cc-adb3-47f5-8deb-264fc3abccd1"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -173,9 +279,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
 }");
         // OnFoot
         m_OnFoot = asset.FindActionMap("OnFoot", throwIfNotFound: true);
-        m_OnFoot_WASD = m_OnFoot.FindAction("WASD", throwIfNotFound: true);
-        m_OnFoot_LeftStick = m_OnFoot.FindAction("LeftStick", throwIfNotFound: true);
+        m_OnFoot_Movement = m_OnFoot.FindAction("Movement", throwIfNotFound: true);
         m_OnFoot_Jump = m_OnFoot.FindAction("Jump", throwIfNotFound: true);
+        m_OnFoot_Look = m_OnFoot.FindAction("Look", throwIfNotFound: true);
+        m_OnFoot_Crouch = m_OnFoot.FindAction("Crouch", throwIfNotFound: true);
+        m_OnFoot_Sprint = m_OnFoot.FindAction("Sprint", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -242,16 +350,20 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     // OnFoot
     private readonly InputActionMap m_OnFoot;
     private List<IOnFootActions> m_OnFootActionsCallbackInterfaces = new List<IOnFootActions>();
-    private readonly InputAction m_OnFoot_WASD;
-    private readonly InputAction m_OnFoot_LeftStick;
+    private readonly InputAction m_OnFoot_Movement;
     private readonly InputAction m_OnFoot_Jump;
+    private readonly InputAction m_OnFoot_Look;
+    private readonly InputAction m_OnFoot_Crouch;
+    private readonly InputAction m_OnFoot_Sprint;
     public struct OnFootActions
     {
         private @PlayerInput m_Wrapper;
         public OnFootActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @WASD => m_Wrapper.m_OnFoot_WASD;
-        public InputAction @LeftStick => m_Wrapper.m_OnFoot_LeftStick;
+        public InputAction @Movement => m_Wrapper.m_OnFoot_Movement;
         public InputAction @Jump => m_Wrapper.m_OnFoot_Jump;
+        public InputAction @Look => m_Wrapper.m_OnFoot_Look;
+        public InputAction @Crouch => m_Wrapper.m_OnFoot_Crouch;
+        public InputAction @Sprint => m_Wrapper.m_OnFoot_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -261,28 +373,40 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_OnFootActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_OnFootActionsCallbackInterfaces.Add(instance);
-            @WASD.started += instance.OnWASD;
-            @WASD.performed += instance.OnWASD;
-            @WASD.canceled += instance.OnWASD;
-            @LeftStick.started += instance.OnLeftStick;
-            @LeftStick.performed += instance.OnLeftStick;
-            @LeftStick.canceled += instance.OnLeftStick;
+            @Movement.started += instance.OnMovement;
+            @Movement.performed += instance.OnMovement;
+            @Movement.canceled += instance.OnMovement;
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
+            @Crouch.started += instance.OnCrouch;
+            @Crouch.performed += instance.OnCrouch;
+            @Crouch.canceled += instance.OnCrouch;
+            @Sprint.started += instance.OnSprint;
+            @Sprint.performed += instance.OnSprint;
+            @Sprint.canceled += instance.OnSprint;
         }
 
         private void UnregisterCallbacks(IOnFootActions instance)
         {
-            @WASD.started -= instance.OnWASD;
-            @WASD.performed -= instance.OnWASD;
-            @WASD.canceled -= instance.OnWASD;
-            @LeftStick.started -= instance.OnLeftStick;
-            @LeftStick.performed -= instance.OnLeftStick;
-            @LeftStick.canceled -= instance.OnLeftStick;
+            @Movement.started -= instance.OnMovement;
+            @Movement.performed -= instance.OnMovement;
+            @Movement.canceled -= instance.OnMovement;
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
+            @Crouch.started -= instance.OnCrouch;
+            @Crouch.performed -= instance.OnCrouch;
+            @Crouch.canceled -= instance.OnCrouch;
+            @Sprint.started -= instance.OnSprint;
+            @Sprint.performed -= instance.OnSprint;
+            @Sprint.canceled -= instance.OnSprint;
         }
 
         public void RemoveCallbacks(IOnFootActions instance)
@@ -302,8 +426,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public OnFootActions @OnFoot => new OnFootActions(this);
     public interface IOnFootActions
     {
-        void OnWASD(InputAction.CallbackContext context);
-        void OnLeftStick(InputAction.CallbackContext context);
+        void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
 }
