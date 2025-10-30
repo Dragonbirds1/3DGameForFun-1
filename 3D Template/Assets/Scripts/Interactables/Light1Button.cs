@@ -5,7 +5,10 @@ public class Light1Button : Interactable
 {
     [SerializeField]
     public GameObject spotLight;
+    public GameObject NeonThing;
     private bool toggleLight;
+    public Material lightOnMat;
+    public Material lightOffMat;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,10 +22,12 @@ public class Light1Button : Interactable
         if (!toggleLight)
         {
             spotLight.SetActive(false);
+            NeonThing.GetComponent<MeshRenderer>().material = lightOffMat;
         }
         else if (toggleLight)
         {
             spotLight.SetActive(true);
+            NeonThing.GetComponent<MeshRenderer>().material = lightOnMat;
         }
     }
 

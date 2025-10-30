@@ -14,8 +14,6 @@ public class Light4Button : Interactable
     void Start()
     {
         toggleLight = true;
-        lightOnMat = GetComponent<Material>();
-        lightOffMat = GetComponent<Material>();
     }
 
     // Update is called once per frame
