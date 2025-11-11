@@ -1,7 +1,11 @@
+
+using System.Threading;
+using System.Collections;
 using UnityEngine;
 
 public class Keypad : Interactable
 {
+
     [SerializeField]
     private GameObject door;
     private bool doorOpen;
@@ -25,19 +29,19 @@ public class Keypad : Interactable
     // This function is where we will design our interaction using code.
     protected override void Interact()
     {
-        doorOpen = !doorOpen;
-        if (doorOpen)
+
+        if (!doorOpen)
         {
             applePay.Play();
         }
-        else if (!doorOpen)
+        else if (doorOpen)
         {
             reverseApplePay.Play();
         }
-        waitTime += Time.deltaTime;
-        if (waitTime > 3)
-        {
-            door.GetComponent<Animator>().SetBool("IsOpen", doorOpen);
-        }
+        doorOpen = !doorOpen;
+
+        door.GetComponent<Animator>().SetBool("IsOpen", doorOpen);
+        fnafDoor.Play();
+
     }
 }

@@ -34,12 +34,10 @@ public class Keypad2 : Interactable
         {
             reverseApplePay.Play();
         }
-        waitTime += Time.deltaTime;
-        if (waitTime > 2)
-        {
-            fnafDoor.Play();
-            door.GetComponent<Animator>().SetBool("IsOpen", !doorOpen);
-            waitTime = 0;
-        }
+
+        door.GetComponent<Animator>().SetBool("IsOpen", !doorOpen);
+        fnafDoor.Play();
+            
+        
     }
 }
