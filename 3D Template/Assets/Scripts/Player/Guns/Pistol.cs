@@ -15,7 +15,7 @@ public class Pistol : MonoBehaviour
     [Tooltip("Part that represents the bullet that is fired from the pistol.")]
     public Transform bulletPart;
     [Tooltip("Damage dealt by each bullet fired from the pistol.")]
-    public float damage;
+    public int damage;
     [Tooltip("Speed at which the bullet travels when fired.")]
     public float bulletSpeed;
     [Tooltip("Time interval between consecutive shots.")]
@@ -43,10 +43,12 @@ public class Pistol : MonoBehaviour
     [Tooltip("Animator for the pistol.")]
     public Animator pistolAnimator;
     bool isFocusing = false;
+    bool canFocus = true;
     public bool canShoot = true;
     public bool canReload = true;
     public bool startReload = false;
     public bool gettingAmmo = false;
+    public bool swapToKnife = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -56,122 +58,135 @@ public class Pistol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Update ammo text display
-        ammoText.text = ammoCount.ToString();
-        // Update total ammo display
-        ammoDisplayText.text = totalAmmo.ToString();
-        // Implementation for shooting logic would go here
-        if (startReload)
+        if (swapToKnife == false)
         {
-            reloadTime -= Time.deltaTime;
-            if (reloadTime <= 0f)
+            // Update ammo text display
+            ammoText.text = ammoCount.ToString();
+            // Update total ammo display
+            ammoDisplayText.text = totalAmmo.ToString();
+            // Implementation for shooting logic would go here
+            // Check for focus input
+            if (Input.GetKeyDown(focusKey) && canFocus == true)
             {
-                pistolAnimator.SetBool("Reload", false);
-                startReload = false;
-                if (ammoCount <= 0)
-                {
-                    totalAmmo -= 10; // Decrease total ammo accordingly
-                    ammoCount = 10; // Refill ammo count
-                }
-                else if (ammoCount == 1)
-                {
-                    totalAmmo -= 9; // Decrease total ammo accordingly
-                    ammoCount = 10; // Refill ammo count
-                }
-                else if (ammoCount == 2)
-                {
-                    totalAmmo -= 8; // Decrease total ammo accordingly
-                    ammoCount = 10; // Refill ammo count
-                }
-                else if (ammoCount == 3)
-                {
-                    totalAmmo -= 7; // Decrease total ammo accordingly
-                    ammoCount = 10; // Refill ammo count
-                }
-                else if (ammoCount == 4)
-                {
-                    totalAmmo -= 6; // Decrease total ammo accordingly
-                    ammoCount = 10; // Refill ammo count
-                }
-                else if (ammoCount == 5)
-                {
-                    totalAmmo -= 5; // Decrease total ammo accordingly
-                    ammoCount = 10; // Refill ammo count
-                }
-                else if (ammoCount == 6)
-                {
-                    totalAmmo -= 4; // Decrease total ammo accordingly
-                    ammoCount = 10; // Refill ammo count
-                }
-                else if (ammoCount == 7)
-                {
-                    totalAmmo -= 3; // Decrease total ammo accordingly
-                    ammoCount = 10; // Refill ammo count
-                }
-                else if (ammoCount == 8)
-                {
-                    totalAmmo -= 2; // Decrease total ammo accordingly
-                    ammoCount = 10; // Refill ammo count
-                }
-                else if (ammoCount == 9)
-                {
-                    totalAmmo -= 1; // Decrease total ammo accordingly
-                    ammoCount = 10; // Refill ammo count
-                }
-                else if (ammoCount == 10)
-                {
-                    totalAmmo -= 0; // Decrease total ammo accordingly
-                    ammoCount = 10; // Refill ammo count
-                }
-                if (totalAmmo <= 0)
-                {
+                // Logic to focus the pistol for aiming
+                // This could involve changing camera zoom, crosshair visibility, etc.
+                gunFocusPart.localPosition = new Vector3(0f, -.3f, 0.5f); // Example focus adjustment
+                                                                          // If isFocusing is true and shootKey is pressed, shoot the pistol at the crosshair position
+                isFocusing = true;
+            }
+            else if (Input.GetKeyUp(focusKey) || canFocus == false)
+            {
+                // Logic to unfocus the pistol
+                gunFocusPart.localPosition = new Vector3(0.374f, -0.412f, 0.611f); // Reset focus adjustment
+                isFocusing = false;
+            }
 
-                    ammoCount = ammoCount + totalAmmo; // Adjust ammo count if total ammo is less than needed
-                    totalAmmo = 0;
-                }
-                canShoot = true;
-                Debug.Log("Pistol Reloaded!");
-                reloadTime = 2.500f;
-            }
-        }
-        // Check for focus input
-        if (Input.GetKeyDown(focusKey))
-        {
-            // Logic to focus the pistol for aiming
-            // This could involve changing camera zoom, crosshair visibility, etc.
-            gunFocusPart.localPosition = new Vector3(0f, -.3f, 0.5f); // Example focus adjustment
-            // If isFocusing is true and shootKey is pressed, shoot the pistol at the crosshair position
-            isFocusing = true;
-        }
-        if (Input.GetKeyUp(focusKey))
-        {
-            // Logic to unfocus the pistol
-            gunFocusPart.localPosition = new Vector3(0.374f, -0.412f, 0.611f); // Reset focus adjustment
-            isFocusing = false;
-        }
-        if (isFocusing == false && Input.GetKeyDown(shootKey))
-        {
-            Shoot();
-        }
-        else if (isFocusing == true && Input.GetKeyDown(shootKey))
-        {
-            FocusShoot();
-        }
-        if (Input.GetKeyDown(reloadKey) && canReload == true)
-        {
-            // Logic to reload the pistol
-            if (ammoCount == 10)
+            if (isFocusing == false && Input.GetKeyDown(shootKey))
             {
-                Debug.Log("Ammo Full!");
-                return;
+                Shoot();
             }
-            pistolAnimator.SetBool("Reload", true);
-            startReload = true;
+            else if (isFocusing == true && Input.GetKeyDown(shootKey))
+            {
+                FocusShoot();
+            }
+            if (Input.GetKeyDown(reloadKey) && canReload == true)
+            {
+                // Logic to reload the pistol
+                if (ammoCount == 10)
+                {
+                    Debug.Log("Ammo Full!");
+                    return;
+                }
+                pistolAnimator.SetBool("Reload", true);
+                startReload = true;
+            }
+
+            if (totalAmmo <= 0)
+            {
+                canReload = false;
+            }
+
+            if (startReload)
+            {
+                isFocusing = false;
+                canFocus = false;
+                reloadTime -= Time.deltaTime;
+                if (reloadTime <= 0f)
+                {
+                    pistolAnimator.SetBool("Reload", false);
+                    startReload = false;
+                    canFocus = true;
+                    if (ammoCount <= 0)
+                    {
+                        totalAmmo -= 10; // Decrease total ammo accordingly
+                        ammoCount = 10; // Refill ammo count
+                    }
+                    else if (ammoCount == 1)
+                    {
+                        totalAmmo -= 9; // Decrease total ammo accordingly
+                        ammoCount = 10; // Refill ammo count
+                    }
+                    else if (ammoCount == 2)
+                    {
+                        totalAmmo -= 8; // Decrease total ammo accordingly
+                        ammoCount = 10; // Refill ammo count
+                    }
+                    else if (ammoCount == 3)
+                    {
+                        totalAmmo -= 7; // Decrease total ammo accordingly
+                        ammoCount = 10; // Refill ammo count
+                    }
+                    else if (ammoCount == 4)
+                    {
+                        totalAmmo -= 6; // Decrease total ammo accordingly
+                        ammoCount = 10; // Refill ammo count
+                    }
+                    else if (ammoCount == 5)
+                    {
+                        totalAmmo -= 5; // Decrease total ammo accordingly
+                        ammoCount = 10; // Refill ammo count
+                    }
+                    else if (ammoCount == 6)
+                    {
+                        totalAmmo -= 4; // Decrease total ammo accordingly
+                        ammoCount = 10; // Refill ammo count
+                    }
+                    else if (ammoCount == 7)
+                    {
+                        totalAmmo -= 3; // Decrease total ammo accordingly
+                        ammoCount = 10; // Refill ammo count
+                    }
+                    else if (ammoCount == 8)
+                    {
+                        totalAmmo -= 2; // Decrease total ammo accordingly
+                        ammoCount = 10; // Refill ammo count
+                    }
+                    else if (ammoCount == 9)
+                    {
+                        totalAmmo -= 1; // Decrease total ammo accordingly
+                        ammoCount = 10; // Refill ammo count
+                    }
+                    else if (ammoCount == 10)
+                    {
+                        totalAmmo -= 0; // Decrease total ammo accordingly
+                        ammoCount = 10; // Refill ammo count
+                    }
+                    if (totalAmmo <= 0)
+                    {
+
+                        ammoCount = ammoCount + totalAmmo; // Adjust ammo count if total ammo is less than needed
+                        totalAmmo = 0;
+                    }
+                    canShoot = true;
+                    Debug.Log("Pistol Reloaded!");
+                    reloadTime = 2.500f;
+                }
+            }
         }
-        
-        if (totalAmmo <= 0)
+        else if (swapToKnife == true)
         {
-            canReload = false;
+            pistolAnimator.SetBool("Reload", false);
+            return;
         }
     }
 
