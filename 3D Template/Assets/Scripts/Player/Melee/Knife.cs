@@ -14,7 +14,7 @@ public class Knife : MonoBehaviour
     [Tooltip("Pistol part.")]
     public GameObject pistolPart;
     [Tooltip("Damage dealt by the knife attack.")]
-    public float damage;
+    public int damage;
     [Tooltip("Range of the knife attack.")]
     public float range;
     [Tooltip("Animator for the knife.")]
@@ -65,7 +65,25 @@ public class Knife : MonoBehaviour
                     knifeAnimator.SetBool("Swing", true);
                     startTimer = true;
                     // Attack logic will be added here in the future
-
+                    if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, range))
+                    {
+                        EnemyHealth enemyHealth = hitInfo.collider.GetComponent<EnemyHealth>();
+                        if (enemyHealth != null)
+                        {
+                            if (attackTimer == 0.350f)
+                            {
+                                enemyHealth.health -= damage;
+                                Debug.Log("Enemy Health: " + enemyHealth.health);
+                                enemyHealth.startRedFlash = true;
+                            }
+                            if (enemyHealth.health <= 0)
+                            {
+                                enemyHealth.isDead = true;
+                                enemyHealth.enemyAnimator.SetBool("Die", true);
+                                enemyHealth.navMeshAgent.enabled = false;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -76,5 +94,13 @@ public class Knife : MonoBehaviour
             pistolPart.SetActive(true);
             return;
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(transform.position + transform.forward * (range / 2), new Vector3(1, 1, range)); // Draw attack range
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, transform.forward * range); // Draw attack ray
     }
 }

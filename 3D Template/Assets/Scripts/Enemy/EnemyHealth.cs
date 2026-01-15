@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.AI;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -31,6 +32,9 @@ public class EnemyHealth : MonoBehaviour
 
     [Header("Animators")]
     public Animator enemyAnimator;
+
+    [Header("Navmesh's")]
+    public NavMeshAgent navMeshAgent;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -74,6 +78,7 @@ public class EnemyHealth : MonoBehaviour
             Debug.Log("Enemy Health: " + health);
             if (health <= 0)
             {
+                navMeshAgent.enabled = false;
                 isDead = true;
                 enemyAnimator.SetBool("Die", true);
             }
