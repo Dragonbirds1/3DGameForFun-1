@@ -21,7 +21,6 @@ public class AmmoBoxMedium : Interactable
     {
         if (pistol.totalAmmo > 50)
         {
-            Debug.Log("Can't Load Ammo!");
             canLoad = false;
         }
         else if (pistol.totalAmmo <= 50)

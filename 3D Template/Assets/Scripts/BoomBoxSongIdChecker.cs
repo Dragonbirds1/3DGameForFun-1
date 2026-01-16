@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine.Networking;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 
 public class BoomBoxSongIdChecker : MonoBehaviour
 {
@@ -16,145 +17,48 @@ public class BoomBoxSongIdChecker : MonoBehaviour
     
     // CheckSongIdCoroutine
 
-
-    [SerializeField]
-    public string songIdToCheck;
-    [SerializeField]
-    private string serverUrl = "https://example.com/checkSongId"; // Placeholder URL
-    [SerializeField]
-    private string result;
-    [SerializeField]
-    private bool isChecking;
-    [SerializeField]
-    private bool isValidSongId;
-    [SerializeField]
-    public float checkInterval = 5.0f; // Time in seconds between checks
-    public float checkTimer;
-    [SerializeField]
-    public TMP_Text textMeshPro;
     // AudioSource will be used to play the song if the ID is valid
     public AudioSource audioSource;
     // Keycode to trigger the check
     public KeyCode checkKey;
+    // Button to trigger the check
+    public Button playButton;
+    public InputField songIdInputField;
 
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
-
-        
+        playButton.onClick.AddListener(OnPlayButtonClick);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnPlayButtonClick()
     {
-        songIdToCheck = textMeshPro.text;
-        if (isChecking)
+        string songId = songIdInputField.text;
+        // In a real application, you would use the ID to query a web API for the actual audio URL.
+        // This example uses a placeholder URL as a demonstration.
+        string audioUrl = "YOUR_AUDIO_URL_HERE" + songId + ".mp3"; // Example structure
+        StartCoroutine(DownloadAndPlayAudio(audioUrl));
+    }
+
+    IEnumerator DownloadAndPlayAudio(string url)
+    {
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG)) // Use appropriate AudioType
         {
-            checkTimer += Time.deltaTime;
-            if (checkTimer >= checkInterval)
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
             {
-                checkTimer = 0f;
-                StartCoroutine(CheckCoroutine());
+                Debug.LogError(www.error);
+            }
+            else
+            {
+                AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
+                audioSource.clip = clip;
+                audioSource.Play();
+                Debug.Log("Playing: " + url);
             }
         }
-        if (isValidSongId)
-        {
-            // Play the song using the AudioSource
-            if (!audioSource.isPlaying)
-            {
-                // Placeholder logic to load and play the song
-                // In a real implementation, you would load the audio clip based on the song ID
-                Debug.Log("Playing song with ID: " + songIdToCheck);
-                // AudioClip is based on songIdToCheck
-                AudioClip clip = Resources.Load<AudioClip>("Songs/" + songIdToCheck); // Example path
-                // load clip and play
-                audioSource.PlayOneShot(clip, 1);
-                // audioSource.clip = ... load clip based on songIdToCheck ...
-                // audioSource.Play();
-            }
-        }
-        if (Input.GetKeyDown(checkKey))
-        {
-            // Check the song ID when the key is pressed
-            CheckSongId(songIdToCheck);
-        }
     }
-
-    // Coroutine to check the song ID
-
-    IEnumerator CheckCoroutine()
-    {
-        // Search for the song ID on the server
-        isChecking = true;
-        // Handle the web request and response
-        HandleServerResponse("valid"); // Placeholder response
-        UnityWebRequest www = UnityWebRequest.Get(serverUrl + "?songId=" + songIdToCheck);
-
-
-        yield return new WaitForSeconds(checkInterval);
-
-        // Debug log to indicate if the request was sent
-        Debug.Log("Sending request to check song ID: " + songIdToCheck);
-    }
-
-
-    // Method to initiate the song ID check
-    public void CheckSongId(string songId)
-    {
-        if (!isChecking)
-        {
-            songIdToCheck = songId;
-            StartCoroutine(CheckCoroutine());
-        }
-    }
-
-    // Method to handle the server response
-    private void HandleServerResponse(string response)
-    {
-        // Placeholder logic for handling server response
-        if (response.Contains("valid"))
-        {
-            isValidSongId = true;
-            result = "Valid Song ID";
-        }
-        else
-        {
-            isValidSongId = false;
-            result = "Invalid Song ID";
-        }
-        // Update the TextMeshPro component with the result
-        if (textMeshPro != null)
-        {
-            textMeshPro.text = result;
-        }
-    }
-
-    // G
-
-    // Method to get the result of the song ID check
-    public string GetResult()
-    {
-        return result;
-    }
-
-    // Method to check if the song ID is valid
-    public bool IsValidSongId()
-    {
-        return isValidSongId;
-    }
-
-    // Method to check if a check is in progress
-    public bool IsChecking()
-    {
-        return isChecking;
-    }
-
-    // Method to set the server URL
-    public void SetServerUrl(string url)
-    {
-        serverUrl = url;
-    }
-
 }

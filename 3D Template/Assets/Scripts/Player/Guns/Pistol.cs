@@ -42,8 +42,8 @@ public class Pistol : MonoBehaviour
     public float reloadTime;
     [Tooltip("Animator for the pistol.")]
     public Animator pistolAnimator;
-    bool isFocusing = false;
-    bool canFocus = true;
+    public bool isFocusing = false;
+    public bool canFocus = true;
     public bool canShoot = true;
     public bool canReload = true;
     public bool startReload = false;
