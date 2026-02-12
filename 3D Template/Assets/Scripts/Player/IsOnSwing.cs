@@ -60,7 +60,7 @@ public class IsOnSwing : MonoBehaviour
                 swingSpeed = 0f;
             }
             swingAngle += swingSpeed * Time.deltaTime;
-            swingAngle = Mathf.Clamp(swingAngle, minSwingAngle, maxSwingAngle);
+            swingAngle = Mathf.Clamp(swingAngle, maxSwingAngle, minSwingAngle);
             // Update player position based on swing angle
             Vector3 offset = new Vector3(Mathf.Sin(swingAngle * Mathf.Deg2Rad), -Mathf.Cos(swingAngle * Mathf.Deg2Rad), 0) * Vector3.Distance(player.transform.position, swingPoint.position);
             player.transform.position = swingPoint.position + offset;
@@ -84,4 +84,12 @@ public class IsOnSwing : MonoBehaviour
             }
         }
     }
+
+    private void OnDrawGizmos()
+    { 
+        Gizmos.color = Color.blue;
+        // Show where the player will be swinging to, max and min angle
+        Gizmos.DrawLine(swingPoint.position, swingPoint.position + new Vector3(Mathf.Sin(maxSwingAngle * Mathf.Deg2Rad), -Mathf.Cos(maxSwingAngle * Mathf.Deg2Rad), 0) * Vector3.Distance(player.transform.position, swingPoint.position));
+    }
 }
+
