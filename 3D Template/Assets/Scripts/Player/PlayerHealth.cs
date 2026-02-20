@@ -4,7 +4,7 @@ using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
-    private float health;
+    public float health;
     private float lerpTimer;
     public float maxHealth = 100f;
     public float chipSpeed = 2f;

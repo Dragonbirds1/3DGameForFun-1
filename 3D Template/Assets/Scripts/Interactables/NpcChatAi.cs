@@ -71,7 +71,21 @@ public class NpcChatAi : MonoBehaviour
     void GenerateNpcResponse()
     {
         // Generate the NPC's response using the chatBotSystem.
-        string response = "This is a placeholder response."; // Replace with actual AI response generation.
+        // Make the response more ai like by using the chatBotSystem and the current conversation history.
+        char[] chars = { ' ', '\t', '\r', '\n' };
+        string[] conversationHistory = currentConversation.Split(chars, System.StringSplitOptions.RemoveEmptyEntries);
+        // Now make the responce.
+        string prompt = chatBotSystem + "\n" + string.Join("\n", conversationHistory) + "\nPlayer: " + lastPlayerInput + "\n" + npcName + ":";
+        // Make string response = CallChatBotSystem(prompt);
+        string CallChatBotSystem(string prompt)
+        {
+            // This function will call the chatBotSystem with the given prompt and return the response.
+            // This is a placeholder implementation and should be replaced with actual API calls to the chatBotSystem.
+            // lets now make the response more ai like by adding some randomness and variation to it.
+            return "This is a placeholder response from the chatBotSystem.";
+        }
+
+        string response = CallChatBotSystem(prompt);
         // Update conversation history.
         currentConversation += npcName + ": " + response + "\n";
         currentConversationLength += response.Length;

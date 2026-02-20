@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Knife : MonoBehaviour
@@ -25,6 +26,7 @@ public class Knife : MonoBehaviour
     public float swapDelay;
     [Tooltip("Timer to track time between attacks.")]
     public float attackTimer;
+    public bool onKnife, onGun;
     bool startTimer = false;
     
     // More code will be added here in the future
@@ -33,6 +35,8 @@ public class Knife : MonoBehaviour
     void Start()
     {
         knifePart.SetActive(false);
+        onKnife = true;
+        onGun = true;
     }
 
     // Update is called once per frame
@@ -44,43 +48,46 @@ public class Knife : MonoBehaviour
         }
         if (pistol.swapToKnife == true)
         {
-            knifePart.SetActive(true);
-            pistolPart.SetActive(false);
-            if (startTimer == true)
+            if (onKnife == true && onGun == true)
             {
-                attackTimer -= Time.deltaTime;
-                if (attackTimer <= 0)
+                knifePart.SetActive(true);
+                pistolPart.SetActive(false);
+                if (startTimer == true)
                 {
-                    knifeAnimator.SetBool("Swing", false);
-                    attackTimer = 0.350f;
-                    startTimer = false;
-                }
-            }
-            swapDelay -= Time.deltaTime;
-            if (swapDelay <= 0)
-            {
-                swapDelay = 0;
-                if (Input.GetKeyDown(attackKey))
-                {
-                    knifeAnimator.SetBool("Swing", true);
-                    startTimer = true;
-                    // Attack logic will be added here in the future
-                    if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, range))
+                    attackTimer -= Time.deltaTime;
+                    if (attackTimer <= 0)
                     {
-                        EnemyHealth enemyHealth = hitInfo.collider.GetComponent<EnemyHealth>();
-                        if (enemyHealth != null)
+                        knifeAnimator.SetBool("Swing", false);
+                        attackTimer = 0.350f;
+                        startTimer = false;
+                    }
+                }
+                swapDelay -= Time.deltaTime;
+                if (swapDelay <= 0)
+                {
+                    swapDelay = 0;
+                    if (Input.GetKeyDown(attackKey))
+                    {
+                        knifeAnimator.SetBool("Swing", true);
+                        startTimer = true;
+                        // Attack logic will be added here in the future
+                        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, range))
                         {
-                            if (attackTimer == 0.350f)
+                            EnemyHealth enemyHealth = hitInfo.collider.GetComponent<EnemyHealth>();
+                            if (enemyHealth != null)
                             {
-                                enemyHealth.health -= damage;
-                                Debug.Log("Enemy Health: " + enemyHealth.health);
-                                enemyHealth.startRedFlash = true;
-                            }
-                            if (enemyHealth.health <= 0)
-                            {
-                                enemyHealth.isDead = true;
-                                enemyHealth.enemyAnimator.SetBool("Die", true);
-                                enemyHealth.navMeshAgent.enabled = false;
+                                if (attackTimer == 0.350f)
+                                {
+                                    enemyHealth.health -= damage;
+                                    Debug.Log("Enemy Health: " + enemyHealth.health);
+                                    enemyHealth.startRedFlash = true;
+                                }
+                                if (enemyHealth.health <= 0)
+                                {
+                                    enemyHealth.isDead = true;
+                                    enemyHealth.enemyAnimator.SetBool("Die", true);
+                                    enemyHealth.navMeshAgent.enabled = false;
+                                }
                             }
                         }
                     }
@@ -89,10 +96,13 @@ public class Knife : MonoBehaviour
         }
         else if (pistol.swapToKnife == false)
         {
-            knifeAnimator.SetBool("Swing", false);
-            knifePart.SetActive(false);
-            pistolPart.SetActive(true);
-            return;
+            if (onKnife == true && onGun == true)
+            {
+                knifeAnimator.SetBool("Swing", false);
+                knifePart.SetActive(false);
+                pistolPart.SetActive(true);
+                return;
+            }
         }
     }
 
