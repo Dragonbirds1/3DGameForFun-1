@@ -5,13 +5,17 @@ public class BoomBox : Interactable
 {
     [Header("BoomBox Settings")]
     public bool isActive = false;
-    public GameObject inField;
-    public GameObject buttonThing;
+    public bool canInteract = true;
+    public GameObject buttonThing1, buttonThing2, buttonThing3, buttonThing4;
+    public AudioSource powerOutAudio;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        buttonThing1.SetActive(false);
+        buttonThing2.SetActive(false);
+        buttonThing3.SetActive(false);
+        buttonThing4.SetActive(false);
     }
 
     // Update is called once per frame
@@ -22,17 +26,32 @@ public class BoomBox : Interactable
 
     protected override void Interact()
     {
-        isActive = !isActive;
+        if (canInteract == true)
+        {
+            isActive = !isActive;
 
-        if (isActive)
-        {
-            inField.SetActive(true);
-            buttonThing.SetActive(true);
+            if (isActive)
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                buttonThing1.SetActive(true);
+                buttonThing2.SetActive(true);
+                buttonThing3.SetActive(true);
+                buttonThing4.SetActive(true);
+            }
+            else if (!isActive)
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                buttonThing1.SetActive(false);
+                buttonThing2.SetActive(false);
+                buttonThing3.SetActive(false);
+                buttonThing4.SetActive(false);
+            }
         }
-        else if (!isActive)
+        else if (canInteract == false)
         {
-            inField.SetActive(false);
-            buttonThing.SetActive(false);
+            powerOutAudio.Play();
         }
     }
 }

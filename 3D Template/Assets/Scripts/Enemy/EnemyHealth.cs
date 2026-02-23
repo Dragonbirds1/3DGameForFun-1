@@ -15,9 +15,11 @@ public class EnemyHealth : MonoBehaviour
 
     [Header("Enemy GameObject")]
     public GameObject enemy;
+    public GameObject capsule;
 
     [Header("Materials")]
     public Material enemyMaterial;
+    public Material redMaterial;
 
     [Header("Times")]
     public float redFlashDuration = 0.2f;
@@ -56,11 +58,11 @@ public class EnemyHealth : MonoBehaviour
         }
         if (startRedFlash)
         {
-            enemyMaterial.color = Color.red;
+            capsule.GetComponent<MeshRenderer>().material = redMaterial;
             redFlashDuration -= Time.deltaTime;
             if (redFlashDuration <= 0)
             {
-                enemyMaterial.color = originalColor;
+                capsule.GetComponent<MeshRenderer>().material = enemyMaterial;
                 startRedFlash = false;
                 redFlashDuration = 0.2f;
             }

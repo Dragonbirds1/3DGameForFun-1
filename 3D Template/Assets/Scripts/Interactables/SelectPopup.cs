@@ -5,6 +5,8 @@ using UnityEngine.ProBuilder.Shapes;
 public class SelectPopup : Interactable
 {
     public GameObject popup;
+    public bool canInteract = true;
+    public AudioSource noPowerAudio;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,11 +22,18 @@ public class SelectPopup : Interactable
 
     protected override void Interact()
     {
-        if (popup.activeInHierarchy == false)
+        if (canInteract == true)
         {
-            popup.SetActive(true);
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            if (popup.activeInHierarchy == false)
+            {
+                popup.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
+        else if (canInteract == false)
+        {
+            noPowerAudio.Play();
         }
     }
 }

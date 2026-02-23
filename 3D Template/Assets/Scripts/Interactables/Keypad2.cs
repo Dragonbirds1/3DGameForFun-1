@@ -8,7 +8,9 @@ public class Keypad2 : Interactable
     public AudioSource applePay;
     public AudioSource reverseApplePay;
     public AudioSource fnafDoor;
+    public AudioSource noPower;
     public float waitTime;
+    public bool canInteract = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,19 +27,24 @@ public class Keypad2 : Interactable
     // This function is where we will design our interaction using code.
     protected override void Interact()
     {
-        doorOpen = !doorOpen;
-        if (!doorOpen)
+        if (canInteract == true)
         {
-            applePay.Play();
-        }
-        else if (doorOpen)
-        {
-            reverseApplePay.Play();
-        }
+            doorOpen = !doorOpen;
+            if (!doorOpen)
+            {
+                applePay.Play();
+            }
+            else if (doorOpen)
+            {
+                reverseApplePay.Play();
+            }
 
-        door.GetComponent<Animator>().SetBool("IsOpen", !doorOpen);
-        fnafDoor.Play();
-            
-        
+            door.GetComponent<Animator>().SetBool("IsOpen", !doorOpen);
+            fnafDoor.Play();
+        }
+        else if (canInteract == false) 
+        {
+            noPower.Play();
+        }
     }
 }

@@ -13,6 +13,11 @@ public class PatrolState : BaseState
     public override void Perform()
     {
         PatrolCycle();
+        if (enemy.CanSeePlayer())
+        {
+            // Change to the attack state.
+            stateMachine.ChangeState(new AttackState());
+        }
     }
 
     public override void Exit()

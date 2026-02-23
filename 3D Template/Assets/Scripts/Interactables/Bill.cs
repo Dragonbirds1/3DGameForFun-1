@@ -9,6 +9,8 @@ public class Bill : Interactable
     [Header("Bill Settings")]
     public GameObject bill;
 
+    public int billValue = 1;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,7 +27,7 @@ public class Bill : Interactable
     {
         if (money.currentMoney < money.maxMoney)
         {
-            money.currentMoney++;
+            money.currentMoney += billValue;
             Destroy(bill);
         }
         else if (money.currentMoney >= money.maxMoney)

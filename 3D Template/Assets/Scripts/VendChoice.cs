@@ -11,6 +11,7 @@ public class VendChoice : MonoBehaviour
     public bool haveItem;
     public bool item1, item2, item3, item4, item5, item6, item7, item8, item9;
     public KeyCode eatKey;
+    public AudioSource eatSound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -94,6 +95,7 @@ public class VendChoice : MonoBehaviour
                     donut.SetActive(false);
                     item9 = false;
                 }
+                eatSound.Play();
             }
         }
         else if (haveItem == false)
