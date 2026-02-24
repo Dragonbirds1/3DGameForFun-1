@@ -96,6 +96,7 @@ public class VendChoice : MonoBehaviour
                     item9 = false;
                 }
                 eatSound.Play();
+                pistol.canShoot = true;
             }
         }
         else if (haveItem == false)

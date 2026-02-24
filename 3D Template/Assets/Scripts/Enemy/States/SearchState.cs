@@ -19,19 +19,26 @@ public class SearchState : BaseState
         if (enemy.CanSeePlayer())
             stateMachine.ChangeState(new AttackState());
 
-        if (enemy.Agent.remainingDistance < enemy.Agent.stoppingDistance)
+        if (enemy != null)
         {
-            searchTimer += Time.deltaTime;
-            moveTimer += Time.deltaTime;
-            if (moveTimer > Random.Range(3, 5))
+            if (enemy.Agent.remainingDistance < enemy.Agent.stoppingDistance)
             {
-                enemy.Agent.SetDestination(enemy.transform.position + (Random.insideUnitSphere * 10));
-                moveTimer = 0;
+                searchTimer += Time.deltaTime;
+                moveTimer += Time.deltaTime;
+                if (moveTimer > Random.Range(3, 5))
+                {
+                    enemy.Agent.SetDestination(enemy.transform.position + (Random.insideUnitSphere * 10));
+                    moveTimer = 0;
+                }
+                if (searchTimer > 10)
+                {
+                    stateMachine.ChangeState(new PatrolState());
+                }
             }
-            if (searchTimer > 10)
-            {
-                stateMachine.ChangeState(new PatrolState());
-            }
+        }
+        else if (enemy == null)
+        {
+            Debug.Log("Enemy Is Dead");
         }
     }
 }

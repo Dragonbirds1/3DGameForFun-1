@@ -19,32 +19,39 @@ public class AttackState : BaseState
 
     public override void Perform()
     {
-        if (enemy.CanSeePlayer())
+        if (enemy != null)
         {
-            losePlayerTimer = 0;
-            moveTimer += Time.deltaTime;
-            shotTimer += Time.deltaTime;
-            enemy.transform.LookAt(enemy.Player.transform);
-            // If shot timer > fireRate
-            if (shotTimer > enemy.fireRate)
+            if (enemy.CanSeePlayer())
             {
-                Shoot();
+                losePlayerTimer = 0;
+                moveTimer += Time.deltaTime;
+                shotTimer += Time.deltaTime;
+                enemy.transform.LookAt(enemy.Player.transform);
+                // If shot timer > fireRate
+                if (shotTimer > enemy.fireRate)
+                {
+                    Shoot();
+                }
+                if (moveTimer > Random.Range(3, 7))
+                {
+                    enemy.Agent.SetDestination(enemy.transform.position + (Random.insideUnitSphere * 5));
+                    moveTimer = 0;
+                }
+                enemy.LastKnowPos = enemy.Player.transform.position;
             }
-            if (moveTimer > Random.Range(3, 7))
+            else // Lost sight of the player.
             {
-                enemy.Agent.SetDestination(enemy.transform.position + (Random.insideUnitSphere * 5));
-                moveTimer = 0;
+                losePlayerTimer += Time.deltaTime;
+                if (losePlayerTimer > 8)
+                {
+                    // Change to the search state.
+                    stateMachine.ChangeState(new SearchState());
+                }
             }
-            enemy.LastKnowPos = enemy.Player.transform.position;
         }
-        else // Lost sight of the player.
+        else if (enemy == null)
         {
-            losePlayerTimer += Time.deltaTime;
-            if (losePlayerTimer > 8)
-            {
-                // Change to the search state.
-                stateMachine.ChangeState(new SearchState());
-            }
+            Debug.Log("Enemy Is Dead");
         }
     }
 

@@ -27,18 +27,25 @@ public class PatrolState : BaseState
     public void PatrolCycle()
     {
         // Implement our patrol logic.
-        if (enemy.Agent.remainingDistance < 0.2f)
+        if (enemy != null)
         {
-            waitTimer += Time.deltaTime;
-            if (waitTimer > 3)
+            if (enemy.Agent.remainingDistance < 0.2f)
             {
-                if (waypointIndex < enemy.path.waypoints.Count - 1)
-                    waypointIndex++;
-                else
-                    waypointIndex = 0;
-                enemy.Agent.SetDestination(enemy.path.waypoints[waypointIndex].position);
-                waitTimer = 0;
+                waitTimer += Time.deltaTime;
+                if (waitTimer > 3)
+                {
+                    if (waypointIndex < enemy.path.waypoints.Count - 1)
+                        waypointIndex++;
+                    else
+                        waypointIndex = 0;
+                    enemy.Agent.SetDestination(enemy.path.waypoints[waypointIndex].position);
+                    waitTimer = 0;
+                }
             }
+        }
+        else if (enemy == null)
+        {
+            Debug.Log("Enemy Is Dead");
         }
     }
 }
