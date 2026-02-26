@@ -13,6 +13,8 @@ public class PlayerMotor : MonoBehaviour
     private bool crouching;
     private float crouchTimer;
     private bool sprinting;
+    public bool canSprint = true;
+    public float currentSpeed; // For red light green light game to get if the player is moving or not.
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,6 +29,13 @@ public class PlayerMotor : MonoBehaviour
     void Update()
     {
         isGrounded = controller.isGrounded;
+        // always set the current speed to the player's velocity magnitude for red light green light game.
+        //currentSpeed = playerVelocity.x;
+        if (canSprint == false)
+        {
+            sprinting = false;
+            speed = 5;
+        }
         if (lerpCrouch)
         {
             crouchTimer += Time.deltaTime;
@@ -57,13 +66,21 @@ public class PlayerMotor : MonoBehaviour
 
     public void Sprint()
     {
-        sprinting = !sprinting;
-        if (sprinting)
+        if (canSprint == true)
         {
-            speed = 8;
+            sprinting = !sprinting;
+            if (sprinting)
+            {
+                speed = 8;
+            }
+            else
+            {
+                speed = 5;
+            }
         }
-        else
+        else if (canSprint == false)
         {
+            sprinting = false;
             speed = 5;
         }
     }
@@ -75,6 +92,8 @@ public class PlayerMotor : MonoBehaviour
         moveDirection.x = input.x;
         moveDirection.z = input.y;
         controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime);
+        // Update current Speed based on the player's movement input
+        currentSpeed = moveDirection.magnitude * speed;
         playerVelocity.y += gravity * Time.deltaTime;
         if (isGrounded && playerVelocity.y < 0)
             playerVelocity.y = -2f;
