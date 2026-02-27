@@ -118,6 +118,7 @@ public class RedLightGreenLight : MonoBehaviour
         if (winGame)
         {
             startGame = false;
+            playerMotor.canSprint = true;
             light1.color = Color.white;
             light2.color = Color.white;
             light3.color = Color.white;
