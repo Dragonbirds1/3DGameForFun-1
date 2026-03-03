@@ -7,6 +7,8 @@ public class StartWeeping : MonoBehaviour
     /// </summary>
     
     public WeepingBean weeping;
+    public GeneratorHealth generatorHealth;
+    public Rigidbody rb;
     private MeshRenderer meshRenderer;
     private BoxCollider boxCollider;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,10 +28,19 @@ public class StartWeeping : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            rb.useGravity = true;
+            generatorHealth.health = 0;
             meshRenderer.enabled = false;
             boxCollider.enabled = false;
-            weeping.enabled = true;
-            weeping.canMove = true;
+            if (weeping != null)
+            {
+                weeping.enabled = true;
+                weeping.canMove = true;
+            }
+            else if (weeping == null)
+            {
+                Debug.Log("No Weeping Bean To Start!");
+            }
         }
     }
 }

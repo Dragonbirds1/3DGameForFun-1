@@ -26,20 +26,34 @@ public class MoveIfLookingAt : MonoBehaviour
         if (Physics.Raycast(ray, out hit, distance))
         {
             // If the FIRST thing we hit is the weeping bean
-            if (((1 << hit.collider.gameObject.layer) & weepingBeanLayerMask) != 0)
+            if (weepingBean != null)
             {
-                Debug.Log("Hit Weeping Bean (not blocked)");
-                weepingBean.canMove = false;
+                if (((1 << hit.collider.gameObject.layer) & weepingBeanLayerMask) != 0)
+                {
+                    Debug.Log("Hit Weeping Bean (not blocked)");
+                    weepingBean.canMove = false;
+                }
+                else
+                {
+                    // Something else (like a wall) is in front
+                    weepingBean.canMove = true;
+                }
             }
-            else
+            else if (weepingBean == null)
             {
-                // Something else (like a wall) is in front
-                weepingBean.canMove = true;
+                return;
             }
         }
         else
         {
-            weepingBean.canMove = true;
+            if (weepingBean != null)
+            {
+                weepingBean.canMove = true;
+            }
+            else if (weepingBean == null)
+            {
+                return;
+            }
         }
     }
 }
