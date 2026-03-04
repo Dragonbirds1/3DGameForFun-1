@@ -8,7 +8,9 @@ public class StartWeeping : MonoBehaviour
     
     public WeepingBean weeping;
     public GeneratorHealth generatorHealth;
+    public GameObject generatorDestroyer;
     public Rigidbody rb;
+    public Animator weepingBeanBlockageDoorAnimator;
     private MeshRenderer meshRenderer;
     private BoxCollider boxCollider;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,6 +18,7 @@ public class StartWeeping : MonoBehaviour
     {
         meshRenderer = GetComponent<MeshRenderer>();
         boxCollider = GetComponent<BoxCollider>();
+        generatorDestroyer.SetActive(false);
     }
 
     // Update is called once per frame
@@ -28,8 +31,10 @@ public class StartWeeping : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            generatorDestroyer.SetActive(true);
             rb.useGravity = true;
             generatorHealth.health = 0;
+            weepingBeanBlockageDoorAnimator.SetBool("IsOpen", true);
             meshRenderer.enabled = false;
             boxCollider.enabled = false;
             if (weeping != null)

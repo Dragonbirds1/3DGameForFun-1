@@ -14,6 +14,8 @@ public class PlayerMotor : MonoBehaviour
     private float crouchTimer;
     private bool sprinting;
     public bool canSprint = true;
+    public bool canMove = true;
+    public bool canJump = true;
     public float currentSpeed; // For red light green light game to get if the player is moving or not.
 
 
@@ -88,24 +90,30 @@ public class PlayerMotor : MonoBehaviour
     // Receive the inputs for our InputManager.cs and apply them to our character controller.
     public void ProcessMove(Vector2 input)
     {
-        Vector3 moveDirection = Vector3.zero;
-        moveDirection.x = input.x;
-        moveDirection.z = input.y;
-        controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime);
-        // Update current Speed based on the player's movement input
-        currentSpeed = moveDirection.magnitude * speed;
-        playerVelocity.y += gravity * Time.deltaTime;
-        if (isGrounded && playerVelocity.y < 0)
-            playerVelocity.y = -2f;
-        controller.Move(playerVelocity * Time.deltaTime);
-        //Debug.Log(playerVelocity.y);
+        if (canMove == true)
+        {
+            Vector3 moveDirection = Vector3.zero;
+            moveDirection.x = input.x;
+            moveDirection.z = input.y;
+            controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime);
+            // Update current Speed based on the player's movement input
+            currentSpeed = moveDirection.magnitude * speed;
+            playerVelocity.y += gravity * Time.deltaTime;
+            if (isGrounded && playerVelocity.y < 0)
+                playerVelocity.y = -2f;
+            controller.Move(playerVelocity * Time.deltaTime);
+            //Debug.Log(playerVelocity.y);
+        }
     }
 
     public void Jump()
     {
-        if (isGrounded)
+        if (canJump == true)
         {
-            playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+            if (isGrounded)
+            {
+                playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+            }
         }
     }
 }

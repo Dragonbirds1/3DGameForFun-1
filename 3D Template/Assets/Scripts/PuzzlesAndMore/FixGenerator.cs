@@ -22,6 +22,7 @@ public class FixGenerator : MonoBehaviour
     public bool song2Playing;
     public bool song3Playing;
     public bool song4Playing;
+    public Animator gateAnimator;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -42,6 +43,14 @@ public class FixGenerator : MonoBehaviour
             {
                 slider.SetActive(false);
                 fixTime = maxFixTime;
+                if (gateAnimator != null)
+                {
+                    gateAnimator.SetBool("CloseGate", true);
+                }
+                else if (gateAnimator == null)
+                {
+                    return;
+                }
                 generatorHealth.health = generatorHealth.maxHealth;
                 generatorHealth.isDestroyed = false;
                 generatorHealth.roundLight.GetComponent<MeshRenderer>().material = generatorHealth.notDamaged;
