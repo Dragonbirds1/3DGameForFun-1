@@ -10,6 +10,8 @@ public class RandomizeDoors : MonoBehaviour
 
     public Keypad door1Script, door2Script, door3Script, door4Script, door5Script, door6Script, door7Script, door8Script, door9Script, door10Script, door11Script, door12Script, door13Script, door14Script, door15Script, door16Script, door17Script, door18Script, door19Script;
 
+    public GameObject weepingBean;
+
     public int doorChoice;
     public int doorCount = 19;
 
@@ -452,6 +454,7 @@ public class RandomizeDoors : MonoBehaviour
         {
             doorChoice = Random.Range(1, doorCount);
             Debug.Log("The Correct Door Is: Door " + doorChoice);
+            weepingBean.SetActive(false);
             meshRenderer.enabled = false;
             boxCollider.enabled = false;
         }

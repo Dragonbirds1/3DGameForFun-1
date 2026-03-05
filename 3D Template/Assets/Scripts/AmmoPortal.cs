@@ -22,7 +22,8 @@ public class AmmoPortal : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //pistol.ammoCount = 0;
-            pistol.totalAmmo -= ammoRemovedAmmount;
+            pistol.totalAmmo = ammoRemovedAmmount;
+            pistol.ammoCount = 10;
             Destroy(ammoPortal);
         }
     }

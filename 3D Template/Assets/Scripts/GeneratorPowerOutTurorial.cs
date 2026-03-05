@@ -17,8 +17,15 @@ public class GeneratorPowerOutTurorial : MonoBehaviour
     {
         if (generatorHealth.health == 0 && tutorialActive == false)
         {
-            powerOutTutorial.SetActive(true);
-            tutorialActive = true;
+            if (powerOutTutorial != null)
+            {
+                powerOutTutorial.SetActive(true);
+                tutorialActive = true;
+            }
+            else if (powerOutTutorial == null)
+            {
+                return;
+            }
         }
     }
 }

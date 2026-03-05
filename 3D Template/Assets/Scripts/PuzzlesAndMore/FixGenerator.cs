@@ -49,7 +49,7 @@ public class FixGenerator : MonoBehaviour
                 }
                 else if (gateAnimator == null)
                 {
-                    return;
+                    Debug.Log("No Gate For This Generator!");
                 }
                 generatorHealth.health = generatorHealth.maxHealth;
                 generatorHealth.isDestroyed = false;
@@ -90,6 +90,14 @@ public class FixGenerator : MonoBehaviour
                 foreach (GameObject gameObject in generatorHealth.hereIsAListForTheGameObjectsBecuaseThereAreSoManyGameObjects)
                 {
                     gameObject.GetComponent<MeshRenderer>().material = generatorHealth.lightOnMat;
+                }
+                if (generatorHealth.weepingBeanAudio != null)
+                {
+                    generatorHealth.weepingBeanAudio.Stop();
+                }
+                else if (generatorHealth.weepingBeanAudio == null)
+                {
+                    Debug.Log("No Audio For This Generator!");
                 }
                 if (song1Playing == true)
                 {

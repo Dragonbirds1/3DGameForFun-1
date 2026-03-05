@@ -8,6 +8,7 @@ public class VendChoice : MonoBehaviour
     public Pistol pistol;
     public Knife knife;
     public PlayerHealth playerHealth;
+    public MeshRenderer[] gunRenderer, knifeRenderer;
     public bool haveItem;
     public bool item1, item2, item3, item4, item5, item6, item7, item8, item9;
     public KeyCode eatKey;
@@ -96,6 +97,14 @@ public class VendChoice : MonoBehaviour
                     item9 = false;
                 }
                 eatSound.Play();
+                foreach (MeshRenderer meshRenderer in gunRenderer)
+                {
+                    meshRenderer.enabled = true; 
+                }
+                foreach (MeshRenderer meshRenderer2 in knifeRenderer)
+                {
+                    meshRenderer2.enabled = true;
+                }
                 pistol.canShoot = true;
             }
         }
@@ -118,6 +127,14 @@ public class VendChoice : MonoBehaviour
             haveItem = true;
             cheezy.SetActive(true);
             item1 = true;
+            foreach (MeshRenderer meshRenderer in gunRenderer)
+            {
+                meshRenderer.enabled = false;
+            }
+            foreach (MeshRenderer meshRenderer2 in knifeRenderer)
+            {
+                meshRenderer2.enabled = false;
+            }
         }
         else
         {
@@ -140,6 +157,14 @@ public class VendChoice : MonoBehaviour
             haveItem = true;
             sprite.SetActive(true);
             item2 = true;
+            foreach (MeshRenderer meshRenderer in gunRenderer)
+            {
+                meshRenderer.enabled = false;
+            }
+            foreach (MeshRenderer meshRenderer2 in knifeRenderer)
+            {
+                meshRenderer2.enabled = false;
+            }
         }
         else
         {
@@ -162,6 +187,14 @@ public class VendChoice : MonoBehaviour
             haveItem = true;
             drp.SetActive(true);
             item3 = true;
+            foreach (MeshRenderer meshRenderer in gunRenderer)
+            {
+                meshRenderer.enabled = false;
+            }
+            foreach (MeshRenderer meshRenderer2 in knifeRenderer)
+            {
+                meshRenderer2.enabled = false;
+            }
         }
         else
         {
@@ -184,6 +217,14 @@ public class VendChoice : MonoBehaviour
             haveItem = true;
             starbu.SetActive(true);
             item4 = true;
+            foreach (MeshRenderer meshRenderer in gunRenderer)
+            {
+                meshRenderer.enabled = false;
+            }
+            foreach (MeshRenderer meshRenderer2 in knifeRenderer)
+            {
+                meshRenderer2.enabled = false;
+            }
         }
         else
         {
@@ -206,6 +247,14 @@ public class VendChoice : MonoBehaviour
             haveItem = true;
             mcd.SetActive(true);
             item5 = true;
+            foreach (MeshRenderer meshRenderer in gunRenderer)
+            {
+                meshRenderer.enabled = false;
+            }
+            foreach (MeshRenderer meshRenderer2 in knifeRenderer)
+            {
+                meshRenderer2.enabled = false;
+            }
         }
         else
         {
@@ -228,6 +277,14 @@ public class VendChoice : MonoBehaviour
             haveItem = true;
             cat.SetActive(true);
             item6 = true;
+            foreach (MeshRenderer meshRenderer in gunRenderer)
+            {
+                meshRenderer.enabled = false;
+            }
+            foreach (MeshRenderer meshRenderer2 in knifeRenderer)
+            {
+                meshRenderer2.enabled = false;
+            }
         }
         else
         {
@@ -250,6 +307,14 @@ public class VendChoice : MonoBehaviour
             haveItem = true;
             let.SetActive(true);
             item7 = true;
+            foreach (MeshRenderer meshRenderer in gunRenderer)
+            {
+                meshRenderer.enabled = false;
+            }
+            foreach (MeshRenderer meshRenderer2 in knifeRenderer)
+            {
+                meshRenderer2.enabled = false;
+            }
         }
         else
         {
@@ -272,6 +337,14 @@ public class VendChoice : MonoBehaviour
             haveItem = true;
             bucketofchicken.SetActive(true);
             item8 = true;
+            foreach (MeshRenderer meshRenderer in gunRenderer)
+            {
+                meshRenderer.enabled = false;
+            }
+            foreach (MeshRenderer meshRenderer2 in knifeRenderer)
+            {
+                meshRenderer2.enabled = false;
+            }
         }
         else
         {
@@ -294,6 +367,14 @@ public class VendChoice : MonoBehaviour
             haveItem = true;
             donut.SetActive(true);
             item9 = true;
+            foreach (MeshRenderer meshRenderer in gunRenderer)
+            {
+                meshRenderer.enabled = false;
+            }
+            foreach (MeshRenderer meshRenderer2 in knifeRenderer)
+            {
+                meshRenderer2.enabled = false;
+            }
         }
         else
         {

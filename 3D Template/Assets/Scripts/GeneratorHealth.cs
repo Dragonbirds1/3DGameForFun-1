@@ -44,6 +44,7 @@ public class GeneratorHealth : MonoBehaviour
     public AudioSource powerOutage;
     public AudioSource powerRestored;
     public AudioSource Song1, Song2, Song3, Song4;
+    public AudioSource weepingBeanAudio;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -135,6 +136,14 @@ public class GeneratorHealth : MonoBehaviour
                 Song2.Stop();
                 Song3.Stop();
                 Song4.Stop();
+                if (weepingBeanAudio != null)
+                {
+                    weepingBeanAudio.Play();
+                }
+                else if (weepingBeanAudio == null)
+                {
+                    Debug.Log("No Audio For This One!");
+                }
                 boomBox.canInteract = false;
                 light1Button.canInteract = false;
                 light2Button.canInteract = false;

@@ -15,9 +15,6 @@ public class StopWeepingBean : MonoBehaviour
     {
         meshRenderer = GetComponent<MeshRenderer>();
         boxCollider = GetComponent<BoxCollider>();
-
-        meshRenderer.enabled = false;
-        boxCollider.enabled = false;
     }
 
     // Update is called once per frame
@@ -27,7 +24,7 @@ public class StopWeepingBean : MonoBehaviour
         if (startTimer == true)
         {
             timer += Time.deltaTime;
-            if (timer >= 2)
+            if (timer >= .75f)
             {
                 meshRenderer.enabled = true;
                 boxCollider.enabled = true;
