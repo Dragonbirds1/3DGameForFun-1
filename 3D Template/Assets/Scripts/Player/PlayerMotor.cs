@@ -14,9 +14,11 @@ public class PlayerMotor : MonoBehaviour
     private float crouchTimer;
     private bool sprinting;
     public bool canSprint = true;
+    public GameObject player;
     public bool canMove = true;
     public bool canJump = true;
     public float currentSpeed; // For red light green light game to get if the player is moving or not.
+    public Vector3 moveDirection = Vector3.zero;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -92,7 +94,6 @@ public class PlayerMotor : MonoBehaviour
     {
         if (canMove == true)
         {
-            Vector3 moveDirection = Vector3.zero;
             moveDirection.x = input.x;
             moveDirection.z = input.y;
             controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime);
@@ -104,6 +105,13 @@ public class PlayerMotor : MonoBehaviour
             controller.Move(playerVelocity * Time.deltaTime);
             //Debug.Log(playerVelocity.y);
         }
+    }
+
+    public void RespawnPlayer()
+    {
+        Vector3 savedPosition = SaveManager.LoadGameData();
+        // Move the player to the saved position
+        player.transform.position = savedPosition;
     }
 
     public void Jump()

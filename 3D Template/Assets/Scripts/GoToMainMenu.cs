@@ -21,4 +21,11 @@ public class GoToMainMenu : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
     }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Title");
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
 }

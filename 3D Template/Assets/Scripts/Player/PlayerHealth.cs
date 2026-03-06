@@ -4,13 +4,19 @@ using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public PlayerMotor playerMotor;
+    public PlayerLook playerLook;
     public float health;
     private float lerpTimer;
     public float maxHealth = 100f;
     public float chipSpeed = 2f;
+    public bool isDead = false;
+    public bool isDeadStart = false;
+    public GameObject[] deathPopups;
     public Image frontHealthBar;
     public Image backHealthBar;
     public TextMeshProUGUI healthText;
+    public KeyCode dieKey;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,6 +27,18 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health <= 0)
+        {
+            isDead = true;
+        }
+        if (Input.GetKeyDown(dieKey))
+        {
+            TakeDamage(100);
+        }
+        if (isDead == true)
+        {
+            PlayerDead();
+        }
         health = Mathf.Clamp(health, 0, maxHealth); 
         UpdateHealthUI();
     }
@@ -63,4 +81,18 @@ public class PlayerHealth : MonoBehaviour
         health += healAmount;
         lerpTimer = 0f;
     }
+
+    public void PlayerDead()
+    {
+        playerMotor.canMove = false;
+        playerMotor.canJump = false;
+        playerLook.canLook = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        foreach (GameObject gameObject in deathPopups)
+        {
+            gameObject.SetActive(true);
+        }
+    }
+
 }
