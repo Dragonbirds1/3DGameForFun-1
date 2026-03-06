@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 public class Path : MonoBehaviour
 {
 
@@ -30,7 +30,7 @@ public class Path : MonoBehaviour
             labelStyle.fontSize = 30;
             labelStyle.normal.textColor = debugColour;
             if (drawNumbers)
-                Handles.Label(waypoints[i].position, i.ToString(), labelStyle);
+                //Handles.Label(waypoints[i].position, i.ToString(), labelStyle);
             //Draw Lines Between Points.
             if (i >= 1)
             {

@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -80,7 +80,7 @@ public class WeepingBeanChase : MonoBehaviour
             labelStyle.fontSize = 30;
             labelStyle.normal.textColor = debugColour;
             if (drawNumbers)
-                Handles.Label(waypoints[i].position, i.ToString(), labelStyle);
+                //Handles.Label(waypoints[i].position, i.ToString(), labelStyle);
             //Draw Lines Between Points.
             if (i >= 1)
             {
