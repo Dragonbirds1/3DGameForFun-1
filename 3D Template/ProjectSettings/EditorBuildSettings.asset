@@ -10,6 +10,9 @@ EditorBuildSettings:
     guid: 500867b175c27c345b02fb38f71119d6
   - enabled: 1
     path: Assets/Scenes/BeanShooter.unity
+    guid: 788eb6ba819a8ed44988d1f7beb1ece9
+  - enabled: 0
+    path: Assets/Scenes/BeanShooterFake.unity
     guid: 300a3e08f4aca4d4db8b93ef6b6935fe
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: f833a02979859254594ab9fcf855d5ac,

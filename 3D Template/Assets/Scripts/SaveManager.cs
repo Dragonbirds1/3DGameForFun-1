@@ -1,36 +1,34 @@
 using UnityEngine;
 
-public class SaveManager : MonoBehaviour
+public static class SaveManager
 {
-    // Key for the saved position X, Y, and Z
-    private const string SavePointXKey = "SavePointX";
-    private const string SavePointYKey = "SavePointY";
-    private const string SavePointZKey = "SavePointZ";
+    private const string SaveX = "SavePointX";
+    private const string SaveY = "SavePointY";
+    private const string SaveZ = "SavePointZ";
 
-    // Function called by the SavePointTrigger
-    public static void SaveGameData(Vector3 playerPosition)
+    public static void SaveCheckpoint(Vector3 pos)
     {
-        PlayerPrefs.SetFloat(SavePointXKey, playerPosition.x);
-        PlayerPrefs.SetFloat(SavePointYKey, playerPosition.y);
-        PlayerPrefs.SetFloat(SavePointZKey, playerPosition.z);
-        PlayerPrefs.Save(); // Commit the changes to disk
-        Debug.Log("Game Saved!");
+        PlayerPrefs.SetFloat(SaveX, pos.x);
+        PlayerPrefs.SetFloat(SaveY, pos.y);
+        PlayerPrefs.SetFloat(SaveZ, pos.z);
+        PlayerPrefs.Save();
+        Debug.Log("Checkpoint saved at: " + pos);
     }
 
-    // Function to load the saved position (e.g., when the player dies or loads the game)
-    public static Vector3 LoadGameData()
+    public static Vector3 LoadCheckpoint()
     {
-        if (PlayerPrefs.HasKey(SavePointXKey))
+        if (PlayerPrefs.HasKey(SaveX))
         {
-            float x = PlayerPrefs.GetFloat(SavePointXKey);
-            float y = PlayerPrefs.GetFloat(SavePointYKey);
-            float z = PlayerPrefs.GetFloat(SavePointZKey);
+            float x = PlayerPrefs.GetFloat(SaveX);
+            float y = PlayerPrefs.GetFloat(SaveY);
+            float z = PlayerPrefs.GetFloat(SaveZ);
             return new Vector3(x, y, z);
         }
-        else
-        {
-            // Return a default start position if no save data is found
-            return Vector3.zero;
-        }
+        return Vector3.zero; // Default spawn if no checkpoint
+    }
+
+    public static bool HasCheckpoint()
+    {
+        return PlayerPrefs.HasKey(SaveX);
     }
 }

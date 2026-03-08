@@ -37,7 +37,11 @@ public class PlayerHealth : MonoBehaviour
         }
         if (isDead == true)
         {
-            PlayerDead();
+            if (isDeadStart == false)
+            {
+                PlayerDead();
+                isDeadStart = true;
+            }
         }
         health = Mathf.Clamp(health, 0, maxHealth); 
         UpdateHealthUI();
@@ -91,7 +95,14 @@ public class PlayerHealth : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         foreach (GameObject gameObject in deathPopups)
         {
-            gameObject.SetActive(true);
+            if (gameObject != null)
+            {
+                gameObject.SetActive(true);
+            }
+            else if (gameObject == null)
+            {
+                Debug.Log("No GameObject!");
+            }
         }
     }
 

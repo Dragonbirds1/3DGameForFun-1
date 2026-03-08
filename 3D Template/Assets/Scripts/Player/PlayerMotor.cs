@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMotor : MonoBehaviour
 {
@@ -105,13 +106,6 @@ public class PlayerMotor : MonoBehaviour
             controller.Move(playerVelocity * Time.deltaTime);
             //Debug.Log(playerVelocity.y);
         }
-    }
-
-    public void RespawnPlayer()
-    {
-        Vector3 savedPosition = SaveManager.LoadGameData();
-        // Move the player to the saved position
-        player.transform.position = savedPosition;
     }
 
     public void Jump()

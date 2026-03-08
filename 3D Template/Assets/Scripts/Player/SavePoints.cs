@@ -23,12 +23,12 @@ public class SavePoints : MonoBehaviour
         
     }
 
-    public void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            // Call SaveManager to save the game.
-            SaveManager.SaveGameData(transform.position);
+            SaveManager.SaveCheckpoint(other.transform.position);
+            Debug.Log("Checkpoint saved at: " + other.transform.position);
         }
     }
 }
